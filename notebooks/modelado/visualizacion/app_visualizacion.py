@@ -30,7 +30,13 @@ histograma_importes.update_layout(xaxis_title='Importe solicitado', yaxis_title=
 
 st.plotly_chart(histograma_importes)
 
-# Filtros
+# Histograma de los pct de ingresos de los créditos otorgados
+histograma_pct = px.histogram(df, x='pct_ingreso', nbins=10, title='Porcentaje de ingreso respecto a los créditos solicitados')
+histograma_pct.update_layout(xaxis_title='Porcentaje de ingreso', yaxis_title='Cantidad')
+
+st.plotly_chart(histograma_pct)
+
+# Filtro 1
 
 option = st.selectbox(
     'Qué tipo de crédito desea filtrar?',
@@ -56,6 +62,27 @@ else:
     # Create a Pie chart
     fig = go.Figure(data=[go.Pie(labels=falta_pago_counts.index, values=falta_pago_counts)])
     fig.update_layout(title_text='Distribución de créditos en función de registro de mora')
+
+st.write(f"Cantidad de créditos con estas condiciones: {df_filtrado.shape[0]}")
+st.plotly_chart(fig)
+
+
+# Filtro 2
+
+option = st.selectbox(
+    'Por qué tipo de tarjeta desea filtrar?',
+     df['nivel_tarjeta_N'].unique())
+
+df_filtrado = df[df['nivel_tarjeta_N'] == option]
+
+st.write(f"Tipo de tarjeta seleccionada: {option}")
+
+# Conteo de ocurrencias por estado
+tasa_interes_counts = df_filtrado['tasa_interes'].value_counts()
+
+# Gráfico de torta de estos valores
+fig = go.Figure(data=[go.Pie(labels=tasa_interes_counts.index, values=tasa_interes_counts)])
+fig.update_layout(title_text='Distribución de créditos por tasa_interes según la tarjeta seleccionada')
 
 st.write(f"Cantidad de créditos con estas condiciones: {df_filtrado.shape[0]}")
 st.plotly_chart(fig)
