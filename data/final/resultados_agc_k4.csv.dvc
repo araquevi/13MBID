@@ -1,0 +1,5 @@
+outs:
+- md5: a584bab8b2d6de48fce3400950e8414a
+  size: 1728173
+  hash: md5
+  path: resultados_agc_k4.csv

@@ -1,0 +1,5 @@
+outs:
+- md5: 835652b7c537864df8eaababc9a25ecf
+  size: 1728173
+  hash: md5
+  path: resultados_birch_n2.csv
